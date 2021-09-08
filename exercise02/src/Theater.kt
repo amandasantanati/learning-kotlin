@@ -13,15 +13,15 @@ import java.math.BigDecimal
 // All other seats in rows 1 and 2: "Best view"
 // All other seats: "Standard seat"
 
-class Theater {
+class Theater(totalRows: Int = 15, totalNums: Int = 36) {
     private val hiddenSeats = mutableListOf<Seat>()
 
-    constructor() {
+    init {
         fun getPrice(row: Int, num: Int) : BigDecimal {
             return when {
                 row >= 14 -> BigDecimal(14.50)
                 num <= 3 || num >= 34 -> BigDecimal(16.50)
-                row == 1 ->  BigDecimal(21.00)
+                row == 1 -> BigDecimal(21.00)
                 else -> BigDecimal(18)
             }
         }
@@ -36,8 +36,8 @@ class Theater {
             }
         }
 
-        for(row in 1..15) {
-            for(num in 1..36) {
+        for(row in 1..totalRows) {
+            for(num in 1..totalNums) {
                 hiddenSeats.add(Seat(row, num, getPrice(row, num), getDescription(row, num)))
             }
         }
