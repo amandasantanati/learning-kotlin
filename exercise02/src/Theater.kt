@@ -21,8 +21,6 @@ class Theater {
 
         for(row in 1..15) {
             for(num in 1..36) {
-                println("$row-$num")
-
                 when {
                     row in (1..13) && (num in (34..36)) || num in (34..36) -> seats.add(Seat(row, num, BigDecimal(16.50), "Restricted View"))
                     row in (1..2) -> seats.add(Seat(row, num, BigDecimal(21.00), "Best View"))
