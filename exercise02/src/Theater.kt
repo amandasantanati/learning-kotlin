@@ -14,24 +14,35 @@ import java.math.BigDecimal
 // All other seats: "Standard seat"
 
 class Theater {
-    val seats = buildSeats()
+    private val hiddenSeats = mutableListOf<Seat>()
 
-    private fun buildSeats() : List<Seat> {
-        val seats = mutableListOf<Seat>()
-
-        for(row in 1..15) {
-            for(num in 1..36) {
-                when {
-                    row in (1..13) && (num in (34..36)) || num in (34..36) -> seats.add(Seat(row, num, BigDecimal(16.50), "Restricted View"))
-                    row in (1..2) -> seats.add(Seat(row, num, BigDecimal(21.00), "Best View"))
-                    row == 14 -> seats.add(Seat(row, num, BigDecimal(14.50), "Cheap View"))
-                    row == 15 -> seats.add(Seat(row, num, BigDecimal(14.50), "Back Row"))
-                    else -> seats.add(Seat(row, num, BigDecimal(18.00), "Standard View"))
-                }
+    constructor() {
+        fun getPrice(row: Int, num: Int) : BigDecimal {
+            return when {
+                row >= 14 -> BigDecimal(14.50)
+                num <= 3 || num >= 34 -> BigDecimal(16.50)
+                row == 1 ->  BigDecimal(21.00)
+                else -> BigDecimal(18)
             }
         }
 
-        //Immutable list is returned
-        return seats.toList()
+        fun getDescription(row: Int, num: Int) : String {
+            return when {
+                row == 15 -> "Back Row"
+                row == 14 -> "Cheap View"
+                num <= 3 || num >= 34 -> "Restricted View"
+                row <= 2 -> "Best View"
+                else -> "Standard View"
+            }
+        }
+
+        for(row in 1..15) {
+            for(num in 1..36) {
+                hiddenSeats.add(Seat(row, num, getPrice(row, num), getDescription(row, num)))
+            }
+        }
     }
+
+    val seats
+    get() = hiddenSeats.toList()
 }
