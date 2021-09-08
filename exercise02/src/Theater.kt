@@ -23,16 +23,12 @@ class Theater {
             for(num in 1..36) {
                 println("$row-$num")
 
-                if((row in 1..13) && (num in 1..3 || num in 34..36)) {
-                    seats.add(Seat(row, num, BigDecimal(16.50), "Restricted View"))
-                } else if(row in 1..2) {
-                    seats.add(Seat(row, num, BigDecimal(21.00), "Best View"))
-                } else if(row == 14) {
-                    seats.add(Seat(row, num, BigDecimal(14.50), "Cheap View"))
-                } else if(row == 15) {
-                    seats.add(Seat(row, num, BigDecimal(14.50), "Back Row"))
-                } else {
-                    seats.add(Seat(row, num, BigDecimal(18.00), "Standard View"))
+                when {
+                    row in (1..13) && (num in (34..36)) || num in (34..36) -> seats.add(Seat(row, num, BigDecimal(16.50), "Restricted View"))
+                    row in (1..2) -> seats.add(Seat(row, num, BigDecimal(21.00), "Best View"))
+                    row == 14 -> seats.add(Seat(row, num, BigDecimal(14.50), "Cheap View"))
+                    row == 15 -> seats.add(Seat(row, num, BigDecimal(14.50), "Back Row"))
+                    else -> seats.add(Seat(row, num, BigDecimal(18.00), "Standard View"))
                 }
             }
         }
