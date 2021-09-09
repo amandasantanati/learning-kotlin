@@ -1,7 +1,7 @@
 import java.io.FileInputStream
 
 // Just compatibility with Java
-// Doesn'' mean much in Kotlin
+// Doesn't mean much in Kotlin
 @Throws(InterruptedException::class)
 fun divide(a: Int, b: Int) : Double {
     Thread.sleep(1000)
@@ -24,7 +24,8 @@ fun main(args: Array<String>) {
         println("caught")
     }
 
-    //In java it would alert of an Exception but not in Kotlin
+    //In Java it would alert of an exception
+    //But not in Kotlin because all exception are
     Thread.sleep(1000)
 
     val result = try {
