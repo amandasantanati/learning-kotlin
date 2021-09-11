@@ -20,10 +20,11 @@ class AgeCalculation {
     }
 }
 
-
+//JUnit4 doesn't work great with Kotlin
+//JUnit5 (Jupiter) works just fine
 class AgeCalculationTest {
 
-    val ageCalculation = AgeCalculation()
+    private val ageCalculation = AgeCalculation()
 
     @Test
     fun checkAgeWhenBornToday() {
