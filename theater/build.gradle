@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'idea'
+	id 'com.gorylenko.gradle-git-properties' version '2.2.4'
+	id 'jacoco'
+	id 'org.owasp.dependencycheck' version '6.2.2'
+	id 'org.jetbrains.kotlin.jvm' version '1.5.20'
+}
+
+group = "com.groar"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+apply plugin: 'org.owasp.dependencycheck'
+
+ext["groovy.version"] = "3.0.8"
+jacoco { toolVersion = "0.8.7" }
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	implementation  'org.springframework.boot:spring-boot-starter'
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+jacocoTestReport {
+	getExecutionData().setFrom(fileTree(buildDir).include("/jacoco/*.exec"))
+	reports {
+		xml.required
+	}
+}
